@@ -1,7 +1,7 @@
 import 'package:e_commerce_app/screens/homescreen.dart';
 import 'package:e_commerce_app/screens/login/login.dart';
 import 'package:e_commerce_app/constants/constant.dart';
-import 'package:email_validator/email_validator.dart';
+import 'package:e_commerce_app/screens/login/register.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -96,6 +96,11 @@ class _SignUpScreenState extends State<SignUpScreen> {
                         child: ElevatedButton(
                           onPressed: () {
                             signUp();
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => RegisterScreen(),
+                                ));
                           },
                           child: Text(
                             "Sign Up",
@@ -113,7 +118,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                           const Text('Does you have account?'),
                           TextButton(
                             child: const Text(
-                              'Sign in',
+                              'Register',
                               style: TextStyle(fontSize: 20),
                             ),
                             onPressed: () {
@@ -127,9 +132,25 @@ class _SignUpScreenState extends State<SignUpScreen> {
                         ],
                         mainAxisAlignment: MainAxisAlignment.center,
                       ),
-                      const SizedBox(
-                        height: 40,
-                      ),
+                      // Row(
+                      //   children: <Widget>[
+                      //     const Text('Register yourself'),
+                      //     TextButton(
+                      //       child: const Text(
+                      //         'Register',
+                      //         style: TextStyle(fontSize: 15),
+                      //       ),
+                      //       onPressed: () {
+                      //         Navigator.push(
+                      //             context,
+                      //             MaterialPageRoute(
+                      //               builder: (context) => RegisterScreen(),
+                      //             ));
+                      //       },
+                      //     )
+                      //   ],
+                      //   mainAxisAlignment: MainAxisAlignment.center,
+                      // ),
                     ],
                   ),
                 ),

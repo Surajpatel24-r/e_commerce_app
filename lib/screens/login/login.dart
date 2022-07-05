@@ -1,9 +1,7 @@
 import 'package:e_commerce_app/constants/constant.dart';
 import 'package:e_commerce_app/screens/homescreen.dart';
 import 'package:e_commerce_app/screens/login/signup.dart';
-import 'package:email_validator/email_validator.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
