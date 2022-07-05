@@ -106,7 +106,7 @@ class _ProductsScreenState extends State<ProductsScreen> {
               Container(
                 height: 170,
                 width: 400,
-                color: Colors.blueAccent,
+                color: Colors.blue,
               ),
               SizedBox(
                 height: 20,

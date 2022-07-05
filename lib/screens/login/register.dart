@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:e_commerce_app/screens/login/signup.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
@@ -14,18 +15,11 @@ class RegisterScreen extends StatefulWidget {
 }
 
 class _RegisterScreenState extends State<RegisterScreen> {
-  String? gender;
-  int id = 0;
-  TextEditingController _dateInput = TextEditingController();
+  String gender = "Male";
+  int id = 1;
+  String? _dateInput;
   TextEditingController _firstNameController = TextEditingController();
   TextEditingController _lastNameController = TextEditingController();
-  TextEditingController _genderController = TextEditingController();
-
-  @override
-  void initState() {
-    _dateInput.text = "";
-    super.initState();
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -54,9 +48,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         height: 20,
                       ),
                       TextFormField(
-                        onTap: () {
-                          print("First Name : $_firstNameController");
-                        },
                         controller: _firstNameController,
                         decoration: InputDecoration(
                             fillColor: Colors.grey.shade100,
@@ -69,9 +60,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         height: 20,
                       ),
                       TextFormField(
-                        onTap: () {
-                          print("Last Name : $_lastNameController");
-                        },
                         controller: _lastNameController,
                         decoration: InputDecoration(
                             fillColor: Colors.grey.shade100,
@@ -87,7 +75,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           // height: MediaQuery.of(context).size.width / 3,
                           child: Center(
                               child: TextField(
-                        controller: _dateInput,
                         decoration: InputDecoration(
                             fillColor: Colors.grey.shade100,
                             filled: true,
@@ -111,10 +98,17 @@ class _RegisterScreenState extends State<RegisterScreen> {
                             print(
                                 formattedDate); //formatted date output using intl package =>  2021-03-16
                             setState(() {
-                              _dateInput.text =
+                              _dateInput =
                                   formattedDate; //set output date to TextField value.
                             });
-                          } else {}
+                          } else {
+                            String formattedDate =
+                                DateFormat('yyyy-MM-dd').format(DateTime.now());
+                            setState(() {
+                              _dateInput =
+                                  formattedDate; //set output date to TextField value.
+                            });
+                          }
                         },
                       ))),
                       const SizedBox(
@@ -132,7 +126,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                 onChanged: (val) {
                                   setState(() {
                                     id = 1;
-                                    debugPrint("Male");
+                                    gender = "Male";
                                   });
                                 },
                               ),
@@ -146,7 +140,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                 onChanged: (val) {
                                   setState(() {
                                     id = 2;
-                                    debugPrint("Female");
+                                    gender = "Female";
                                   });
                                 },
                               ),
@@ -168,9 +162,12 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         width: 130,
                         child: ElevatedButton(
                           onPressed: () {
-                            debugPrint(_firstNameController.text);
-                            debugPrint(_lastNameController.text);
-                            debugPrint(_dateInput.text);
+                            print(_firstNameController.text);
+                            print(_lastNameController.text);
+                            print(_dateInput);
+                            print(gender);
+
+                            submit();
                           },
                           child: Text(
                             "Continue",
@@ -190,5 +187,20 @@ class _RegisterScreenState extends State<RegisterScreen> {
             ],
           )),
     );
+  }
+
+  Future<void> submit() {
+    CollectionReference users =
+        FirebaseFirestore.instance.collection('userData');
+
+    return users
+        .add({
+          'first_name': _firstNameController.text,
+          'last_name': _lastNameController.text,
+          'dob': _dateInput,
+          'gender': gender
+        })
+        .then((value) => print("User Added"))
+        .catchError((error) => print("Failed to add user: $error"));
   }
 }
