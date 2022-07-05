@@ -43,6 +43,7 @@ dependencies:
   favorite_button: ^0.0.4
   group_radio_button: ^1.2.0
   intl: ^0.17.0
+  cloud_firestore: ^3.2.1
 
 dev_dependencies:
   flutter_test:

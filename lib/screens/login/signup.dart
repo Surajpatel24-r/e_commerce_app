@@ -96,11 +96,6 @@ class _SignUpScreenState extends State<SignUpScreen> {
                         child: ElevatedButton(
                           onPressed: () {
                             signUp();
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) => RegisterScreen(),
-                                ));
                           },
                           child: Text(
                             "Sign Up",
@@ -172,7 +167,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
         Navigator.pushReplacement(
             context,
             MaterialPageRoute(
-              builder: (context) => HomeScreen(),
+              builder: (context) => RegisterScreen(),
             ));
       } else {
         Fluttertoast.showToast(msg: "Somthing Went Wrong");

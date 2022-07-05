@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:e_commerce_app/screens/login/signup.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
@@ -14,11 +16,14 @@ class RegisterScreen extends StatefulWidget {
 class _RegisterScreenState extends State<RegisterScreen> {
   String? gender;
   int id = 0;
-  TextEditingController dateInput = TextEditingController();
+  TextEditingController _dateInput = TextEditingController();
+  TextEditingController _firstNameController = TextEditingController();
+  TextEditingController _lastNameController = TextEditingController();
+  TextEditingController _genderController = TextEditingController();
 
   @override
   void initState() {
-    dateInput.text = "";
+    _dateInput.text = "";
     super.initState();
   }
 
@@ -49,6 +54,10 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         height: 20,
                       ),
                       TextFormField(
+                        onTap: () {
+                          print("First Name : $_firstNameController");
+                        },
+                        controller: _firstNameController,
                         decoration: InputDecoration(
                             fillColor: Colors.grey.shade100,
                             filled: true,
@@ -60,6 +69,10 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         height: 20,
                       ),
                       TextFormField(
+                        onTap: () {
+                          print("Last Name : $_lastNameController");
+                        },
+                        controller: _lastNameController,
                         decoration: InputDecoration(
                             fillColor: Colors.grey.shade100,
                             filled: true,
@@ -74,7 +87,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           // height: MediaQuery.of(context).size.width / 3,
                           child: Center(
                               child: TextField(
-                        controller: dateInput,
+                        controller: _dateInput,
                         decoration: InputDecoration(
                             fillColor: Colors.grey.shade100,
                             filled: true,
@@ -98,7 +111,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                             print(
                                 formattedDate); //formatted date output using intl package =>  2021-03-16
                             setState(() {
-                              dateInput.text =
+                              _dateInput.text =
                                   formattedDate; //set output date to TextField value.
                             });
                           } else {}
@@ -119,6 +132,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                 onChanged: (val) {
                                   setState(() {
                                     id = 1;
+                                    debugPrint("Male");
                                   });
                                 },
                               ),
@@ -132,6 +146,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                 onChanged: (val) {
                                   setState(() {
                                     id = 2;
+                                    debugPrint("Female");
                                   });
                                 },
                               ),
@@ -140,19 +155,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                 style: new TextStyle(
                                   fontSize: 17.0,
                                 ),
-                              ),
-                              Radio(
-                                value: 3,
-                                groupValue: id,
-                                onChanged: (val) {
-                                  setState(() {
-                                    id = 3;
-                                  });
-                                },
-                              ),
-                              Text(
-                                'Other',
-                                style: new TextStyle(fontSize: 17.0),
                               ),
                             ],
                           ),
@@ -165,7 +167,11 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         height: 45,
                         width: 130,
                         child: ElevatedButton(
-                          onPressed: () {},
+                          onPressed: () {
+                            debugPrint(_firstNameController.text);
+                            debugPrint(_lastNameController.text);
+                            debugPrint(_dateInput.text);
+                          },
                           child: Text(
                             "Continue",
                           ),
