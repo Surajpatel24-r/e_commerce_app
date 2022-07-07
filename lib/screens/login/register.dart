@@ -17,7 +17,7 @@ class RegisterScreen extends StatefulWidget {
 class _RegisterScreenState extends State<RegisterScreen> {
   String gender = "Male";
   int id = 1;
-  String? _dateInput;
+  TextEditingController _dateInput = TextEditingController();
   TextEditingController _firstNameController = TextEditingController();
   TextEditingController _lastNameController = TextEditingController();
 
@@ -75,6 +75,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           // height: MediaQuery.of(context).size.width / 3,
                           child: Center(
                               child: TextField(
+                        controller: _dateInput,
                         decoration: InputDecoration(
                             fillColor: Colors.grey.shade100,
                             filled: true,
@@ -98,14 +99,14 @@ class _RegisterScreenState extends State<RegisterScreen> {
                             print(
                                 formattedDate); //formatted date output using intl package =>  2021-03-16
                             setState(() {
-                              _dateInput =
+                              _dateInput.text =
                                   formattedDate; //set output date to TextField value.
                             });
                           } else {
                             String formattedDate =
                                 DateFormat('yyyy-MM-dd').format(DateTime.now());
                             setState(() {
-                              _dateInput =
+                              _dateInput.text =
                                   formattedDate; //set output date to TextField value.
                             });
                           }
@@ -197,7 +198,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
         .add({
           'first_name': _firstNameController.text,
           'last_name': _lastNameController.text,
-          'dob': _dateInput,
+          'dob': _dateInput.text,
           'gender': gender
         })
         .then((value) => print("User Added"))

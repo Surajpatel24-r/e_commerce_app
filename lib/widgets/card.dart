@@ -51,6 +51,7 @@ class _CardScreenState extends State<CardScreen> {
                   style: TextStyle(fontSize: 20),
                 ),
                 FloatingActionButton(
+                  heroTag: 'f',
                   onPressed: () {
                     Navigator.push(
                         context,

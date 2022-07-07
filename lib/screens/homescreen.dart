@@ -115,15 +115,37 @@ class _HomeScreenState extends State<HomeScreen> {
                 itemBuilder: (context, index) => CardScreen()),
           ),
           SizedBox(
-            height: 20,
+            height: 40,
           ),
-          Container(
-            height: 70,
-            width: 370,
-            decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(40), color: Colors.purple),
-            child: TextField(),
+          Expanded(
+            child: Container(
+              height: 60,
+              child: ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  primary: Colors.purple,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(90),
+                  ),
+                ),
+                onPressed: () {},
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    CircleAvatar(
+                        maxRadius: 20, child: Icon(Icons.search_outlined)),
+                    Text(
+                      'Find Somthing',
+                      style: TextStyle(fontSize: 20),
+                    ),
+                    Icon(Icons.filter_list)
+                  ],
+                ),
+              ),
+            ),
           ),
+          SizedBox(
+            height: 10,
+          )
         ],
       ),
     );

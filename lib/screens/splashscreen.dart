@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:e_commerce_app/constants/constant.dart';
+import 'package:e_commerce_app/screens/app_base.dart';
 import 'package:e_commerce_app/screens/login/signup.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -21,7 +22,7 @@ class _SplashScreenState extends State<SplashScreen> {
         () => Navigator.pushReplacement(
             context,
             MaterialPageRoute(
-              builder: (context) => const SignUpScreen(),
+              builder: (context) => const AppBaseScreen(),
             )));
   }
 

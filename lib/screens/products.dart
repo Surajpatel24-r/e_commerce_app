@@ -1,4 +1,5 @@
 import 'package:e_commerce_app/screens/homescreen.dart';
+import 'package:e_commerce_app/widgets/size_list.dart';
 import 'package:favorite_button/favorite_button.dart';
 import 'package:flutter/material.dart';
 
@@ -45,89 +46,99 @@ class _ProductsScreenState extends State<ProductsScreen> {
           ],
         ),
         body: Container(
-          child: Column(
-            children: [
-              Stack(children: [
-                Container(
-                  height: 370,
-                  width: 450,
-                  // color: Colors.blue,
-                  child: Container(
+            child: Column(children: [
+          Stack(children: [
+            Container(
+              height: 370,
+              width: 450,
+              // color: Colors.blue,
+              child: Container(
+                  child: Column(
+                children: [
+                  SizedBox(
+                    height: 30,
+                  ),
+                  Center(
                       child: Column(
                     children: [
-                      SizedBox(
-                        height: 30,
+                      CircleAvatar(
+                        maxRadius: 150,
+                        backgroundImage: NetworkImage(
+                            "https://yt3.ggpht.com/ytc/AKedOLTYWSzYOUv2cQhYqkcv0oCCwmrXsjC-r8UDn28F2g=s900-c-k-c0x00ffffff-no-rj"),
                       ),
-                      Center(
-                          child: Column(
-                        children: [
-                          CircleAvatar(
-                            maxRadius: 150,
-                            backgroundImage: NetworkImage(
-                                "https://yt3.ggpht.com/ytc/AKedOLTYWSzYOUv2cQhYqkcv0oCCwmrXsjC-r8UDn28F2g=s900-c-k-c0x00ffffff-no-rj"),
-                          ),
-                        ],
-                      )),
                     ],
                   )),
-                ),
-                Positioned(
-                    left: 20,
-                    bottom: 20,
-                    child: CircleAvatar(
-                        backgroundColor: Colors.deepOrange,
-                        radius: 32,
-                        child: CircleAvatar(
-                          backgroundColor: Colors.white,
-                          maxRadius: 30,
-                          child: FavoriteButton(
-                            valueChanged: (_isFavorite) {
-                              print('Is Favorite $_isFavorite)');
-                            },
-                          ),
-                        )))
-              ]),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(
-                    "Milli Bobby\nBrown",
-                    style: TextStyle(fontSize: 30, fontWeight: FontWeight.w600),
-                  ),
-                  Text(
-                    "Rs: 1200T",
-                    style: TextStyle(fontSize: 30, fontWeight: FontWeight.w600),
-                  )
                 ],
+              )),
+            ),
+            Positioned(
+                left: 20,
+                bottom: 20,
+                child: CircleAvatar(
+                    backgroundColor: Colors.deepOrange,
+                    radius: 32,
+                    child: CircleAvatar(
+                      backgroundColor: Colors.white,
+                      maxRadius: 30,
+                      child: FavoriteButton(
+                        valueChanged: (_isFavorite) {
+                          print('Is Favorite $_isFavorite)');
+                        },
+                      ),
+                    )))
+          ]),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text(
+                "Milli Bobby\nBrown",
+                style: TextStyle(fontSize: 30, fontWeight: FontWeight.w600),
               ),
-              SizedBox(
-                height: 10,
-              ),
-              Container(
-                height: 170,
-                width: 400,
-                color: Colors.blue,
-              ),
-              SizedBox(
-                height: 20,
-              ),
-              Container(
-                height: 70,
-                width: 370,
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(40),
-                    color: Colors.purple),
-                child: Center(
-                    child: Text(
-                  "Add to Card",
-                  style: TextStyle(
-                      fontSize: 20,
-                      fontWeight: FontWeight.w500,
-                      color: Colors.white),
-                )),
+              Text(
+                "Rs: 1200T",
+                style: TextStyle(fontSize: 30, fontWeight: FontWeight.w600),
               )
             ],
           ),
-        ));
+          SizedBox(
+            height: 30,
+          ),
+          Column(
+            children: [SizeListScreen()],
+          ),
+          SizedBox(
+            height: 100,
+          ),
+          Expanded(
+            child: Container(
+              height: 60,
+              child: ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  primary: Colors.purple,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(90),
+                  ),
+                ),
+                onPressed: () {},
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(
+                      'Add to Card',
+                      style: TextStyle(fontSize: 20),
+                    ),
+                    SizedBox(
+                      width: 10,
+                    ),
+                    Icon(Icons.shopping_cart_outlined)
+                  ],
+                ),
+              ),
+            ),
+          ),
+          SizedBox(
+            height: 10,
+          )
+        ])));
   }
 }
