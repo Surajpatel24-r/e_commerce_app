@@ -1,6 +1,8 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:e_commerce_app/screens/login/signup.dart';
-import 'package:e_commerce_app/widgets/card.dart';
+
 import 'package:e_commerce_app/models/circle_model.dart';
+import 'package:e_commerce_app/widgets/card.dart';
 import 'package:flutter/material.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -11,6 +13,8 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  final Stream<QuerySnapshot> _usersStream =
+      FirebaseFirestore.instance.collection('Product').snapshots();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -108,12 +112,43 @@ class _HomeScreenState extends State<HomeScreen> {
             ],
           ),
           SizedBox(
-            height: 330,
-            child: ListView.builder(
-                scrollDirection: Axis.horizontal,
-                itemCount: dataList.length,
-                itemBuilder: (context, index) => CardScreen()),
-          ),
+              height: 330,
+              child: StreamBuilder<QuerySnapshot>(
+                stream: _usersStream,
+                builder: (context, snapshot) {
+                  if (snapshot.hasError) {
+                    return Text('Something went wrong');
+                  }
+
+                  if (snapshot.connectionState == ConnectionState.waiting) {
+                    return Text("Loading");
+                  }
+                  return ListView(
+                    scrollDirection: Axis.horizontal,
+                    children:
+                        snapshot.data!.docs.map((DocumentSnapshot document) {
+                      Map<String, dynamic> data =
+                          document.data()! as Map<String, dynamic>;
+                      return CardScreen(
+                        image: data['product_image'],
+                        name: data['product_name'],
+                        price: data['product_price'],
+                      );
+                      // ListTile(
+                      //   leading: Image(image: NetworkImage(data['product_image'])),
+                      //   title: Text(data['product_name']),
+                      //   subtitle: Text(data['product_description']),
+                      //   trailing: Text(data['product_price']),
+                      // );
+                    }).toList(),
+                  );
+                },
+              )
+              // ListView.builder(
+              //     scrollDirection: Axis.horizontal,
+              //     itemCount: dataList.length,
+              //     itemBuilder: (context, index) => CardScreen()),
+              ),
           SizedBox(
             height: 40,
           ),

@@ -2,6 +2,7 @@ import 'package:e_commerce_app/screens/bottom_nav_bar/cartnavbar.dart';
 import 'package:e_commerce_app/screens/bottom_nav_bar/favoritenavbar.dart';
 import 'package:e_commerce_app/screens/bottom_nav_bar/homepagenavbar.dart';
 import 'package:e_commerce_app/screens/bottom_nav_bar/profilenavbar.dart';
+import 'package:e_commerce_app/screens/homescreen.dart';
 import 'package:e_commerce_app/screens/login/signup.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -94,7 +95,13 @@ class _AppBaseScreenState extends State<AppBaseScreen> {
               ListTile(
                   leading: const Icon(Icons.account_circle),
                   title: const Text('Profile'),
-                  onTap: () {}),
+                  onTap: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => HomeScreen(),
+                        ));
+                  }),
               ListTile(
                   leading: const Icon(Icons.settings),
                   title: const Text('Settings'),

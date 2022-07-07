@@ -15,10 +15,6 @@ class HomePageNaveBarScreen extends StatefulWidget {
 class _HomePageNaveBarScreenState extends State<HomePageNaveBarScreen> {
   final Stream<QuerySnapshot> _usersStream =
       FirebaseFirestore.instance.collection('Product').snapshots();
-  // @override
-  // void initState() async {
-  //   super.initState();
-  // }
 
   @override
   Widget build(BuildContext context) {
