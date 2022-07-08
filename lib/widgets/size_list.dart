@@ -15,7 +15,7 @@ class _SizeListScreenState extends State<SizeListScreen> {
   Widget build(BuildContext context) {
     return Container(
       height: 80,
-      padding: EdgeInsets.symmetric(horizontal: 25, vertical: 10),
+      padding: EdgeInsets.symmetric(horizontal: 15, vertical: 15),
       child: ListView.separated(
         scrollDirection: Axis.horizontal,
         separatorBuilder: (_, index) => SizedBox(
@@ -29,7 +29,7 @@ class _SizeListScreenState extends State<SizeListScreen> {
             });
           },
           child: Container(
-            padding: EdgeInsets.symmetric(horizontal: 20, vertical: 20),
+            padding: EdgeInsets.symmetric(horizontal: 15, vertical: 15),
             decoration: BoxDecoration(
                 color: currentSelected == index
                     ? Theme.of(context).accentColor
