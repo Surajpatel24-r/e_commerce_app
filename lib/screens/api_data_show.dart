@@ -1,4 +1,4 @@
-import 'package:e_commerce_app/Networking/product_api.dart';
+import 'package:e_commerce_app/models/Networking/product_api.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
