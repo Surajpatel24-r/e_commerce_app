@@ -1,4 +1,4 @@
-import 'package:e_commerce_app/screens/homescreen.dart';
+import 'package:e_commerce_app/screens/collections.dart';
 import 'package:e_commerce_app/screens/login/login.dart';
 import 'package:e_commerce_app/constants/constant.dart';
 import 'package:e_commerce_app/screens/login/register.dart';

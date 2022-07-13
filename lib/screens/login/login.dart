@@ -1,5 +1,5 @@
 import 'package:e_commerce_app/constants/constant.dart';
-import 'package:e_commerce_app/screens/homescreen.dart';
+import 'package:e_commerce_app/screens/collections.dart';
 import 'package:e_commerce_app/screens/login/signup.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -127,7 +127,7 @@ class _LoginScreenState extends State<LoginScreen> {
         Navigator.pushReplacement(
             context,
             MaterialPageRoute(
-              builder: (context) => HomeScreen(),
+              builder: (context) => CollectionsScreen(),
             ));
       } else {
         Fluttertoast.showToast(msg: "Somthing Went Wrong");

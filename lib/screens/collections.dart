@@ -3,18 +3,21 @@ import 'package:e_commerce_app/screens/login/signup.dart';
 
 import 'package:e_commerce_app/models/circle_model.dart';
 import 'package:e_commerce_app/widgets/card.dart';
+import 'package:e_commerce_app/widgets/catagorys.dart';
 import 'package:flutter/material.dart';
 
-class HomeScreen extends StatefulWidget {
-  const HomeScreen({Key? key}) : super(key: key);
+class CollectionsScreen extends StatefulWidget {
+  const CollectionsScreen({Key? key}) : super(key: key);
 
   @override
-  State<HomeScreen> createState() => _HomeScreenState();
+  State<CollectionsScreen> createState() => _CollectionsScreenState();
 }
 
-class _HomeScreenState extends State<HomeScreen> {
+class _CollectionsScreenState extends State<CollectionsScreen> {
   final Stream<QuerySnapshot> _usersStream =
       FirebaseFirestore.instance.collection('Product').snapshots();
+  final Stream<QuerySnapshot> _catagoryStream =
+      FirebaseFirestore.instance.collection('Catagories').snapshots();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -59,13 +62,13 @@ class _HomeScreenState extends State<HomeScreen> {
             children: [
               Text(
                 "Collections",
-                style: TextStyle(fontSize: 30),
+                style: TextStyle(fontSize: 25),
               ),
               IconButton(
                   onPressed: () {},
                   icon: Icon(
                     Icons.more_horiz,
-                    size: 33,
+                    size: 25,
                   ))
             ],
           ),
@@ -73,40 +76,41 @@ class _HomeScreenState extends State<HomeScreen> {
             height: 10,
           ),
           Container(
-            margin: EdgeInsets.all(10.0),
-            height: 115.0,
-            child: ListView.builder(
-              scrollDirection: Axis.horizontal,
-              itemCount: dataList.length,
-              itemBuilder: (context, index) => Container(
-                  height: 100.0,
-                  width: 95.0,
-                  child: Center(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        CircleAvatar(
-                          maxRadius: 40,
-                          backgroundImage: NetworkImage(dataList[index].image),
-                        ),
-                        Padding(
-                          padding: EdgeInsets.all(8.0),
-                          child: Text(dataList[index].name),
-                        ),
-                      ],
-                    ),
-                  )),
-            ),
-          ),
+              margin: EdgeInsets.all(10.0),
+              height: 105.0,
+              child: StreamBuilder<QuerySnapshot>(
+                stream: _catagoryStream,
+                builder: (context, snapshot) {
+                  if (snapshot.hasError) {
+                    return Text('Something went wrong');
+                  }
+
+                  if (snapshot.connectionState == ConnectionState.waiting) {
+                    return Text("Loading");
+                  }
+                  return ListView(
+                    scrollDirection: Axis.horizontal,
+                    children:
+                        snapshot.data!.docs.map((DocumentSnapshot document) {
+                      Map<String, dynamic> data =
+                          document.data()! as Map<String, dynamic>;
+                      return CatagoryScreen(
+                        image: data['catagory_image'],
+                        name: data['catagory_name'],
+                      );
+                    }).toList(),
+                  );
+                },
+              )),
           SizedBox(
-            height: 20,
+            height: 10,
           ),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(
                 "New In",
-                style: TextStyle(fontSize: 30),
+                style: TextStyle(fontSize: 25),
               ),
               TextButton(onPressed: () {}, child: Text("See All"))
             ],
@@ -134,27 +138,16 @@ class _HomeScreenState extends State<HomeScreen> {
                         name: data['product_name'],
                         price: data['product_price'],
                       );
-                      // ListTile(
-                      //   leading: Image(image: NetworkImage(data['product_image'])),
-                      //   title: Text(data['product_name']),
-                      //   subtitle: Text(data['product_description']),
-                      //   trailing: Text(data['product_price']),
-                      // );
                     }).toList(),
                   );
                 },
-              )
-              // ListView.builder(
-              //     scrollDirection: Axis.horizontal,
-              //     itemCount: dataList.length,
-              //     itemBuilder: (context, index) => CardScreen()),
-              ),
+              )),
           SizedBox(
-            height: 40,
+            height: 70,
           ),
           Expanded(
             child: Container(
-              height: 60,
+              height: 40,
               child: ElevatedButton(
                 style: ElevatedButton.styleFrom(
                   primary: Colors.purple,

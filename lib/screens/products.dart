@@ -1,28 +1,30 @@
-import 'package:e_commerce_app/screens/homescreen.dart';
+import 'package:e_commerce_app/screens/collections.dart';
 import 'package:e_commerce_app/widgets/size_list.dart';
 import 'package:favorite_button/favorite_button.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 class ProductsScreen extends StatefulWidget {
-  const ProductsScreen({Key? key}) : super(key: key);
+  final name, image, price;
+  const ProductsScreen({Key? key, this.image, this.name, this.price})
+      : super(key: key);
 
   @override
   State<ProductsScreen> createState() => _ProductsScreenState();
 }
 
 class _ProductsScreenState extends State<ProductsScreen> {
-  List<String> categories = [
-    'About',
-    'Price',
-    'summary',
-    'Feedback',
-    'About',
-    'Price',
-    'Summary',
-    'Feedback'
-  ];
-  int selectedIndex = 0;
+  // List<String> categories = [
+  //   'About',
+  //   'Price',
+  //   'summary',
+  //   'Feedback',
+  //   'About',
+  //   'Price',
+  //   'Summary',
+  //   'Feedback'
+  // ];
+  // int selectedIndex = 0;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -44,7 +46,7 @@ class _ProductsScreenState extends State<ProductsScreen> {
               Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => HomeScreen(),
+                    builder: (context) => CollectionsScreen(),
                   ));
             },
           ),
@@ -119,42 +121,43 @@ class _ProductsScreenState extends State<ProductsScreen> {
           Column(
             children: [SizeListScreen()],
           ),
-          Padding(
-            padding: const EdgeInsets.symmetric(vertical: 10),
-            child: SizedBox(
-                height: 35,
-                child: ListView.builder(
-                  scrollDirection: Axis.horizontal,
-                  itemCount: categories.length,
-                  itemBuilder: (context, index) => GestureDetector(
-                    onTap: () {
-                      setState(() {
-                        selectedIndex = index;
-                      });
-                    },
-                    child: Padding(
-                        padding: EdgeInsets.symmetric(horizontal: 10),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(categories[index],
-                                style: TextStyle(
-                                    fontWeight: FontWeight.bold,
-                                    color: selectedIndex == index
-                                        ? Colors.blue
-                                        : Colors.black)),
-                            Container(
-                                margin: EdgeInsets.only(top: 30 / 4),
-                                height: 2,
-                                width: 30,
-                                color: selectedIndex == index
-                                    ? Colors.blue
-                                    : Colors.green)
-                          ],
-                        )),
-                  ),
-                )),
-          ),
+          // DefaultTabController(
+          //   initialIndex: 1,
+          //   length: 3,
+          //   child: Scaffold(
+          //     appBar: AppBar(
+          //       title: const Text('TabBar Widget'),
+          //       bottom: const TabBar(
+          //         tabs: <Widget>[
+          //           Tab(
+          //             icon: Icon(Icons.cloud_outlined),
+          //           ),
+          //           Tab(
+          //             icon: Icon(Icons.beach_access_sharp),
+          //           ),
+          //           Tab(
+          //             icon: Icon(Icons.brightness_5_sharp),
+          //           ),
+          //         ],
+          //       ),
+          //     ),
+          //     body: const TabBarView(
+          //       children: <Widget>[
+          //         Center(
+          //           child: Text("It's cloudy here"),
+          //         ),
+          //         Center(
+          //           child: Text("It's rainy here"),
+          //         ),
+          //         Center(
+          //           child: Text("It's sunny here"),
+          //         ),
+          //       ],
+          //     ),
+          //   ),
+          // )
+          //
+
           // Expanded(
           //   child: Container(
           //     height: 60,

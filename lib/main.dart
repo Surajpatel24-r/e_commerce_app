@@ -1,5 +1,6 @@
+import 'package:e_commerce_app/screens/api_data_show.dart';
 import 'package:e_commerce_app/screens/app_base.dart';
-import 'package:e_commerce_app/screens/homescreen.dart';
+import 'package:e_commerce_app/screens/collections.dart';
 import 'package:e_commerce_app/screens/splashscreen.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
@@ -23,7 +24,8 @@ class MyApp extends StatelessWidget {
             debugShowCheckedModeBanner: false,
             title: "Flutter Demo",
             theme: ThemeData(primaryColor: Colors.white),
-            home: SplashScreen(),
+            home: ApiDataShowScreen(),
+            // AppBaseScreen(),
           )),
     );
   }
