@@ -10,7 +10,6 @@ import 'dart:convert';
 //     ProductApi.fromJson(json.decode(str));
 
 // String productApiToJson(ProductApi data) => json.encode(data.toJson());
-// List<ProductApi> cData = [];
 
 class ProductApi {
   ProductApi({
@@ -64,20 +63,27 @@ class ProductApi {
       };
 }
 
-// Future<List<ProductApi>>
-getData() async {
+Future<List<ProductApi>> getData() async {
+  List<ProductApi> cData = [];
+
   final response =
       await http.get(Uri.parse('https://dummyjson.com/products/1'));
   if (response.statusCode == 200) {
     print('Response Data - ${response.body}');
     // List rData = jsonDecode(response.body);
+    // print(rData);
     // rData.forEach((element) {
     //   ProductApi obj = ProductApi.fromJson(element);
     //   cData.add(obj);
     // });
-    return true;
+    Map<String, dynamic> rData = jsonDecode(response.body);
+    print(rData);
+    ProductApi obj = ProductApi.fromJson(rData);
+    cData.add(obj);
+    print(cData[0].brand);
+    return cData;
   } else {
     print('Failed');
-    return false;
+    return cData;
   }
 }

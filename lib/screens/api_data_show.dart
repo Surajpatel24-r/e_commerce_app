@@ -24,7 +24,31 @@ class _ApiDataShowScreenState extends State<ApiDataShowScreen> {
               },
               child: Text('Fetch Data'),
             ),
-            check ? Text('Data Received') : CircularProgressIndicator()
+            check
+                ? FutureBuilder(
+                    future: getData(),
+                    builder: (context, snapshot) {
+                      if (snapshot.hasData) {
+                        List<ProductApi> dData =
+                            snapshot.data as List<ProductApi>;
+                        return Column(
+                          children: dData
+                              .map((e) => Card(
+                                    child: Column(
+                                      children: [
+                                        Text(e.title),
+                                        Image.network(e.thumbnail)
+                                      ],
+                                    ),
+                                  ))
+                              .toList(),
+                        );
+                      } else {
+                        return CircularProgressIndicator();
+                      }
+                    },
+                  )
+                : CircularProgressIndicator()
           ],
         ),
       ),
@@ -32,7 +56,11 @@ class _ApiDataShowScreenState extends State<ApiDataShowScreen> {
   }
 
   fetchData() async {
-    check = await getData();
+    // check =
+    List cData = await getData();
+    if (cData.length > 0) {
+      check = true;
+    } else {}
     setState(() {});
   }
 }
