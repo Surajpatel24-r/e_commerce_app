@@ -26,9 +26,9 @@ class _AppBaseScreenState extends State<AppBaseScreen> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      decoration: BoxDecoration(
-          image: DecorationImage(
-              image: AssetImage('asserts/login2.jpg'), fit: BoxFit.cover)),
+      // decoration: BoxDecoration(
+      //     image: DecorationImage(
+      //         image: AssetImage('asserts/login2.jpg'), fit: BoxFit.cover)),
       child: Scaffold(
         body: screens[index],
         bottomNavigationBar: NavigationBarTheme(

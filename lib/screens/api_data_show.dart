@@ -15,41 +15,49 @@ class _ApiDataShowScreenState extends State<ApiDataShowScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(),
-      body: Center(
-        child: Column(
-          children: [
-            ElevatedButton(
-              onPressed: () {
-                fetchData();
-              },
-              child: Text('Fetch Data'),
-            ),
-            check
-                ? FutureBuilder(
-                    future: getData(),
-                    builder: (context, snapshot) {
-                      if (snapshot.hasData) {
-                        List<ProductApi> dData =
-                            snapshot.data as List<ProductApi>;
-                        return Column(
-                          children: dData
-                              .map((e) => Card(
-                                    child: Column(
-                                      children: [
-                                        Text(e.title),
-                                        Image.network(e.thumbnail)
-                                      ],
-                                    ),
-                                  ))
-                              .toList(),
-                        );
-                      } else {
-                        return CircularProgressIndicator();
-                      }
-                    },
-                  )
-                : CircularProgressIndicator()
-          ],
+      body: SingleChildScrollView(
+        child: Center(
+          child: Column(
+            children: [
+              ElevatedButton(
+                onPressed: () {
+                  fetchData();
+                },
+                child: Text('Fetch Data'),
+              ),
+              check
+                  ? FutureBuilder(
+                      future: getData(),
+                      builder: (context, snapshot) {
+                        if (snapshot.hasData) {
+                          List<ProductApi> dData =
+                              snapshot.data as List<ProductApi>;
+                          return Column(
+                            children: dData
+                                .map((e) => Card(
+                                      child: Column(
+                                        children: [
+                                          Text(e.title),
+                                          Image.network(e.images[0]),
+                                          Text(e.title),
+                                          Image.network(e.images[1]),
+                                          Text(e.title),
+                                          Image.network(e.images[2]),
+                                          Text(e.title),
+                                          Image.network(e.images[3]),
+                                        ],
+                                      ),
+                                    ))
+                                .toList(),
+                          );
+                        } else {
+                          return CircularProgressIndicator();
+                        }
+                      },
+                    )
+                  : CircularProgressIndicator()
+            ],
+          ),
         ),
       ),
     );

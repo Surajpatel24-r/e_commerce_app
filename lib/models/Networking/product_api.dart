@@ -2,6 +2,7 @@
 //
 //     final productApi = productApiFromJson(jsonString);
 
+import 'package:flutter/services.dart';
 import 'package:http/http.dart' as http;
 
 import 'dart:convert';
@@ -23,6 +24,7 @@ class ProductApi {
     required this.brand,
     required this.category,
     required this.thumbnail,
+    required this.images,
   });
 
   int id;
@@ -35,6 +37,7 @@ class ProductApi {
   String brand;
   String category;
   String thumbnail;
+  List images;
 
   factory ProductApi.fromJson(Map<String, dynamic> json) => ProductApi(
         id: json["id"],
@@ -47,6 +50,7 @@ class ProductApi {
         brand: json["brand"],
         category: json["category"],
         thumbnail: json["thumbnail"],
+        images: List.from(json["images"].map((x) => x)),
       );
 
   Map<String, dynamic> toJson() => {
@@ -60,11 +64,15 @@ class ProductApi {
         "brand": brand,
         "category": category,
         "thumbnail": thumbnail,
+        "images": List.from(images.map((x) => x)),
       };
 }
 
 Future<List<ProductApi>> getData() async {
   List<ProductApi> cData = [];
+
+  final json =
+      await rootBundle.loadString("lib/models/Networking/dummydata.json");
 
   final response =
       await http.get(Uri.parse('https://dummyjson.com/products/1'));
@@ -76,10 +84,15 @@ Future<List<ProductApi>> getData() async {
     //   ProductApi obj = ProductApi.fromJson(element);
     //   cData.add(obj);
     // });
-    Map<String, dynamic> rData = jsonDecode(response.body);
-    print(rData);
-    ProductApi obj = ProductApi.fromJson(rData);
-    cData.add(obj);
+    // Map<String, dynamic> rData = jsonDecode(response.body);
+    // print(rData);
+    // ProductApi obj = ProductApi.fromJson(rData);
+    List rData = jsonDecode(json);
+    rData.forEach((element) {
+      ProductApi obj = ProductApi.fromJson(element);
+      cData.add(obj);
+    });
+
     print(cData[0].brand);
     return cData;
   } else {
